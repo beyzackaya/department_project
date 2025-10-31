@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: const Text('Giriş Yap')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -56,37 +56,35 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(children: [
                 TextFormField(
                   controller: _usernameCtrl,
-                  decoration: const InputDecoration(labelText: 'Username'),
-                  validator: (v) => (v == null || v.isEmpty) ? 'Enter username' : null,
+                  decoration: const InputDecoration(labelText: 'Kullanıcı Adı'),
+                  validator: (v) => (v == null || v.isEmpty) ? 'Kullanıcı adı girin' : null,
                 ),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _passwordCtrl,
-                  decoration: const InputDecoration(labelText: 'Password'),
+                  decoration: const InputDecoration(labelText: 'Şifre'),
                   obscureText: true,
-                  validator: (v) => (v == null || v.isEmpty) ? 'Enter password' : null,
+                  validator: (v) => (v == null || v.isEmpty) ? 'Şifre girin' : null,
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) _login();
                   },
-                  child: const Text('Login'),
+                  child: const Text('Giriş Yap'),
                 ),
               ]),
             ),
             const SizedBox(height: 16),
             TextButton(
               onPressed: () async {
-                // go to signup and get the created username back (if provided)
                 final result = await Navigator.of(context).push(MaterialPageRoute(builder: (_) => SignUpScreen(prefs: widget.prefs)));
                 if (result is String && result.isNotEmpty) {
                   _usernameCtrl.text = result;
                 }
-                // after coming back, clear any error
                 setState(() => _error = null);
               },
-              child: const Text('Don\'t have an account? Sign Up'),
+              child: const Text('Hesabınız yok mu? Kayıt Ol'),
             )
           ],
         ),

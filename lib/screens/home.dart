@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bölüm Mobil Uygulaması'),
+        title: const Text('Bilgisayar Mühendisliği Bölümü'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),

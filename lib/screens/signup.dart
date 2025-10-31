@@ -20,9 +20,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final username = _usernameCtrl.text.trim();
     final password = _passwordCtrl.text;
     final fullName = _fullNameCtrl.text.trim();
-    await widget.prefs.setString('username', username);
-    await widget.prefs.setString('password', password);
-    await widget.prefs.setString('full_name', fullName);
+    await widget.prefs.setString('Kullanıcı Adı', username);
+    await widget.prefs.setString('Şifre', password);
+    await widget.prefs.setString('Tam Ad', fullName);
     if (!mounted) return;
     Navigator.of(context).pop(username);
   }
@@ -37,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign Up')),
+      appBar: AppBar(title: const Text('Kayıt Ol')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -50,28 +50,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(children: [
               TextFormField(
                 controller: _fullNameCtrl,
-                decoration: const InputDecoration(labelText: 'Full name'),
-                validator: (v) => (v == null || v.isEmpty) ? 'Enter full name' : null,
+                decoration: const InputDecoration(labelText: 'Tam Ad'),
+                validator: (v) => (v == null || v.isEmpty) ? 'Tam ad girin' : null,
               ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _usernameCtrl,
-                decoration: const InputDecoration(labelText: 'Username'),
-                validator: (v) => (v == null || v.isEmpty) ? 'Enter username' : null,
+                decoration: const InputDecoration(labelText: 'Kullanıcı Adı'),
+                validator: (v) => (v == null || v.isEmpty) ? 'Kullanıcı adı girin' : null,
               ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _passwordCtrl,
-                decoration: const InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Şifre'),
                 obscureText: true,
-                validator: (v) => (v == null || v.isEmpty) ? 'Enter password' : null,
+                validator: (v) => (v == null || v.isEmpty) ? 'Şifre girin' : null,
               ),
               const SizedBox(height: 16),
               ElevatedButton(onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   await _signup();
                 }
-              }, child: const Text('Sign Up')),
+              }, child: const Text('Kayıt Ol')),
             ]),
           ),
         ]),

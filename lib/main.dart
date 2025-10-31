@@ -6,7 +6,6 @@ import 'screens/home.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
-  // For MVP we won't pre-populate users. Just start the app.
   runApp(MyApp(prefs: prefs));
 }
 
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // Use named routes so Home can navigate back to login easily.
       initialRoute: '/',
       routes: {
         '/': (context) => LoginScreen(prefs: prefs),
