@@ -17,16 +17,21 @@ class _LoginScreenState extends State<LoginScreen> {
   String? _error;
 
   void _login() {
+    final messenger = ScaffoldMessenger.of(context);
     final u = widget.prefs.getString('username');
     final p = widget.prefs.getString('password');
     if (u == null || p == null) {
-      setState(() => _error = 'No user registered. Please Sign Up first.');
+      setState(() => _error = 'Kayıtlı kullanıcı yok. Lütfen önce kayıt olun.');
+      messenger.showSnackBar(const SnackBar(content: Text('Giriş başarısız: kayıtlı kullanıcı yok'), backgroundColor: Colors.red));
       return;
     }
     if (_usernameCtrl.text == u && _passwordCtrl.text == p) {
+      // Başarılı giriş
+      messenger.showSnackBar(const SnackBar(content: Text('Giriş başarılı'), backgroundColor: Colors.green));
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
-      setState(() => _error = 'Invalid username or password');
+      setState(() => _error = 'Kullanıcı adı veya şifre hatalı');
+      messenger.showSnackBar(const SnackBar(content: Text('Giriş başarısız: kullanıcı adı veya şifre hatalı'), backgroundColor: Colors.red));
     }
   }
 
