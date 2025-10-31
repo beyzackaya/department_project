@@ -18,20 +18,38 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login() {
     final messenger = ScaffoldMessenger.of(context);
+
+    // Key isimleri signup ile aynı olmalı
     final u = widget.prefs.getString('username');
     final p = widget.prefs.getString('password');
+
     if (u == null || p == null) {
       setState(() => _error = 'Kayıtlı kullanıcı yok. Lütfen önce kayıt olun.');
-      messenger.showSnackBar(const SnackBar(content: Text('Giriş başarısız: kayıtlı kullanıcı yok'), backgroundColor: Colors.red));
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text('Giriş başarısız: kayıtlı kullanıcı yok'),
+          backgroundColor: Colors.red,
+        ),
+      );
       return;
     }
+
     if (_usernameCtrl.text == u && _passwordCtrl.text == p) {
-      // Başarılı giriş
-      messenger.showSnackBar(const SnackBar(content: Text('Giriş başarılı'), backgroundColor: Colors.green));
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text('Giriş başarılı'),
+          backgroundColor: Colors.green,
+        ),
+      );
       Navigator.of(context).pushReplacementNamed('/home');
     } else {
       setState(() => _error = 'Kullanıcı adı veya şifre hatalı');
-      messenger.showSnackBar(const SnackBar(content: Text('Giriş başarısız: kullanıcı adı veya şifre hatalı'), backgroundColor: Colors.red));
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text('Giriş başarısız: kullanıcı adı veya şifre hatalı'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -83,7 +101,9 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(height: 16),
             TextButton(
               onPressed: () async {
-                final result = await Navigator.of(context).push(MaterialPageRoute(builder: (_) => SignUpScreen(prefs: widget.prefs)));
+                final result = await Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => SignUpScreen(prefs: widget.prefs)),
+                );
                 if (result is String && result.isNotEmpty) {
                   _usernameCtrl.text = result;
                 }

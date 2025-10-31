@@ -14,23 +14,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _usernameCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
   final _fullNameCtrl = TextEditingController();
-  String? _message;
 
   Future<void> _signup() async {
     final username = _usernameCtrl.text.trim();
     final password = _passwordCtrl.text;
     final fullName = _fullNameCtrl.text.trim();
-    await widget.prefs.setString('Kullanıcı Adı', username);
-    await widget.prefs.setString('Şifre', password);
-    await widget.prefs.setString('Tam Ad', fullName);
+
+    // Key isimlerini standardize ettik (web uyumluluğu)
+    await widget.prefs.setString('username', username);
+    await widget.prefs.setString('password', password);
+    await widget.prefs.setString('fullname', fullName);
+
     if (!mounted) return;
-    Navigator.of(context).pop(username);
+    Navigator.of(context).pop(username); // signup sonrası username döndür
   }
 
   @override
   void dispose() {
     _usernameCtrl.dispose();
     _passwordCtrl.dispose();
+    _fullNameCtrl.dispose();
     super.dispose();
   }
 
@@ -41,10 +44,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          if (_message != null) Padding(
-            padding: const EdgeInsets.only(bottom: 12.0),
-            child: Text(_message!, style: const TextStyle(color: Colors.green)),
-          ),
           Form(
             key: _formKey,
             child: Column(children: [
@@ -67,11 +66,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 validator: (v) => (v == null || v.isEmpty) ? 'Şifre girin' : null,
               ),
               const SizedBox(height: 16),
-              ElevatedButton(onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  await _signup();
-                }
-              }, child: const Text('Kayıt Ol')),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    await _signup();
+                  }
+                },
+                child: const Text('Kayıt Ol'),
+              ),
             ]),
           ),
         ]),
